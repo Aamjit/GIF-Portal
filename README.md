@@ -1,5 +1,7 @@
 ## Your Favourite GIF collection Portal
 
+![GIF Portal](./GIF_portal.png)
+
 This Project was built using **ReactJS** as a front end Framework with some styling using CSS, some assets, some predefined GIFs. If you do no find the GIFs make sure you have a phantom wallet and connect the site using your wallet.
 <br/>
 
