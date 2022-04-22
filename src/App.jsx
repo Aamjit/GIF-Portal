@@ -14,12 +14,15 @@ const TEST_GIFS = [
 ];
 
 const App = () => {
+	// defining hooks
+	const [walletAddress, setWalletAddress] = useState(null);
+	const [inputValue, setInputValue] = useState("");
+	const [gifList, setGifList] = useState([]);
+
 	/*
 	 * This function holds the logic for deciding if a Phantom Wallet is
 	 * connected or not
 	 */
-	const [walletAddress, setWalletAddress] = useState(null);
-
 	const checkIfWalletIsConnected = async () => {
 		try {
 			const { solana } = window;
@@ -28,7 +31,7 @@ const App = () => {
 				// console.log(solana)
 
 				// connecting website to wallet
-				const response = await solana.connect({ onlyIftrusted: true });
+				// const response = await solana.connect({ onlyIftrusted: true });
 				// console.log(response.publicKey.toString());
 			} else {
 				alert("Solana object not found! Get a Phantom Wallet 👻");
@@ -55,6 +58,22 @@ const App = () => {
 		}
 	};
 
+	// handle input change
+	const onInputChange = (event) => {
+		const { value } = event.target;
+		setInputValue(value);
+	};
+
+	const sendGif = async () => {
+		if (inputValue.length > 0) {
+			console.log("Link: ", inputValue);
+			setGifList([...gifList, inputValue]);
+			setInputValue("");
+		} else {
+			alert("Please insert a link! 😑");
+		}
+	};
+
 	const renderNotConnectedContainer = () => {
 		return (
 			<button
@@ -70,8 +89,29 @@ const App = () => {
 	const renderConnectedContainer = () => {
 		return (
 			<div className="connected-container">
+				<form
+					className="form-box"
+					onSubmit={(event) => {
+						event.preventDefault();
+						sendGif();
+					}}
+				>
+					<input
+						type="text"
+						placeholder="Enter GIF link"
+						className="input-gif-link"
+						value={inputValue}
+						onChange={onInputChange}
+					/>
+					<button
+						type="submit"
+						className="cta-button submit-gif-button"
+					>
+						Add New
+					</button>
+				</form>
 				<div className="gif-grid">
-					{TEST_GIFS.map((gif) => (
+					{gifList.map((gif) => (
 						// console.log(gif);
 						<div className="gif-item" key={gif}>
 							<img alt={gif} src={gif} loading="lazy" />
@@ -92,6 +132,17 @@ const App = () => {
 		window.addEventListener("load", onLoad);
 		return () => window.removeEventListener("load", onLoad);
 	}, []);
+
+	useEffect(() => {
+		if (walletAddress) {
+			console.log("Fetching GIF list...");
+			// call solanan progs
+
+			// set state
+			setGifList(TEST_GIFS);
+			console.log("Fetched!");
+		}
+	}, [walletAddress]);
 
 	return (
 		<div className="App">
@@ -115,7 +166,7 @@ const App = () => {
 						href={TWITTER_LINK}
 						target="_blank"
 						rel="noreferrer"
-					>{`built by ${TWITTER_HANDLE}`}</a>
+					>{`Built by ${TWITTER_HANDLE}`}</a>
 				</div>
 			</div>
 		</div>

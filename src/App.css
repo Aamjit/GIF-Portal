@@ -54,26 +54,32 @@
 
 .connect-wallet-button {
 	background: -webkit-linear-gradient(left, #60c657, #35aee2);
-	background-size: 200% 200%;
 	animation: gradient-animation 4s ease infinite;
+}
+
+.input-gif-link {
+	margin: 0;
+	width: 100%;
+}
+
+.form-box {
+	margin-bottom: 2rem;
 }
 
 .submit-gif-button {
 	background: -webkit-linear-gradient(left, #4e44ce, #35aee2);
-	background-size: 200% 200%;
 	animation: gradient-animation 4s ease infinite;
-	margin-left: 10px;
+	width: min(90%, 300px);
+	margin: 0 1rem 2rem 1rem;
 }
 
 .footer-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	position: absolute;
-	width: 100vw;
-	bottom: 0;
-	left: 0;
-	padding-bottom: 45px;
+	width: 100%;
+	margin-top: 6rem;
+	padding-bottom: 25px;
 }
 
 .twitter-logo {
@@ -116,14 +122,14 @@
 	display: inline-block;
 	color: white;
 	padding: 10px;
-	width: 50%;
+	width: min(90%, 600px);
 	height: 60px;
 	font-size: 16px;
 	box-sizing: border-box;
 	background-color: rgba(0, 0, 0, 0.25);
 	border: none;
 	border-radius: 10px;
-	margin: 50px auto;
+	margin: 20px auto;
 }
 
 .connected-container button {
